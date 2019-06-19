@@ -1,0 +1,19 @@
+{
+  "name": "node_passport_login",
+  "version": "1.0.0",
+  "description": "excercise for login using passport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cepholopoddreamz/loginpassport.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cepholopoddreamz/loginpassport/issues"
+  },
+  "homepage": "https://github.com/cepholopoddreamz/loginpassport#readme"
+}
