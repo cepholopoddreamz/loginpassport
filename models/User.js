@@ -24,4 +24,4 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema)
 
 module.exports = User;
-//I FOrGOT TO EXport this. user wasn't a funciton because user was undefined -- bc User wasn't exported. 
+//I FOrGOT TO EXport this. user wasn't a function because user was undefined -- bc User wasn't exported. 
