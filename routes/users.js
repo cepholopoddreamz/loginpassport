@@ -54,8 +54,28 @@ router.post('/register', (req,res) => {
           email,
           password
         });
+        //above creates the instance, but its not saved yet.
         console.log(newUser)
-        res.send ('hello');
+        //Hash Password
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            //set newuser password to hash
+            newUser.password = hash;
+            //after password is set to hash then save it
+            newUser
+              .save()
+              .then(user => {
+                req.flash(
+                  'success_msg',
+                  'You are now registered and can log in'
+                );
+                res.redirect('/users/login');
+              })
+              .catch(err => console.log(err));
+          });
+        });
+
         }
       })
   }
