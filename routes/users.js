@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-
-//User model
+// Load User model
 const User = require('../models/User');
-
+//const flash = require('connect-flash');
 //LoginPage --> now nested in pathway users/login
 router.get('/login', (req,res) => res.render('Login'))
 
@@ -60,9 +58,8 @@ router.post('/register', (req,res) => {
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
-            //set newuser password to hash
             newUser.password = hash;
-            //after password is set to hash then save it
+            //after password is set to hash conversion of password that user is then saved on mongodb
             newUser
               .save()
               .then(user => {
@@ -75,9 +72,8 @@ router.post('/register', (req,res) => {
               .catch(err => console.log(err));
           });
         });
-
-        }
-      })
+      }
+    });
   }
 });
 
