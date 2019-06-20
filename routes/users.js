@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 //User model
-const User = require('../models/User')
+const User = require('../models/User');
 
 //LoginPage --> now nested in pathway users/login
 router.get('/login', (req,res) => res.render('Login'))
@@ -37,17 +38,27 @@ router.post('/register', (req,res) => {
       password2
     });
   } else {
-    //Validation passed 
-    //mongoose - create model and call methods on that model
-    const newUser = new User({
-      name,
-      email,
-      password
-    })
-    console.log(newUser)
-  res.send ('hello');
-}
-  
+    User.findOne({ email: email }).then(user => {
+      if (user) {
+        errors.push({ msg: 'Email already exists' });
+        res.render('register', {
+          errors,
+          name,
+          email,
+          password,
+          password2
+        });
+      } else {
+        const newUser = new User({
+          name,
+          email,
+          password
+        });
+        console.log(newUser)
+        res.send ('hello');
+        }
+      })
+  }
 });
 
 module.exports = router;
