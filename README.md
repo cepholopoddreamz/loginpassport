@@ -7,10 +7,10 @@ This is a user login and registration app using Node.js, Express, Passport, Mong
 $ npm install
 
 $ npm start
-# Or run with Nodemon
+### Or run with Nodemon
 $ npm run dev
 
-# Visit http://localhost:3000
+### Visit http://localhost:3000
 
 ### MongoDB
 
