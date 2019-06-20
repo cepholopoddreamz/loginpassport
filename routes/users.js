@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 //const flash = require('connect-flash');
 //LoginPage --> now nested in pathway users/login
+const passport = require('passport');
+
 router.get('/login', (req,res) => res.render('Login'))
 
 //register Pages --> now nested in pathway users/register
@@ -76,5 +78,25 @@ router.post('/register', (req,res) => {
     });
   }
 });
+
+//Login Handle
+
+// Login
+router.post('/login', (req, res, next) => {
+  //local cites the local strategy - specific term in passport
+  passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(req, res, next);
+});
+
+// Logout
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/users/login');
+});
+
 
 module.exports = router;
