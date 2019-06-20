@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+app.listen(PORT, console.log(`Server started on PORT ${PORT}`))
+
 // DB Config
 const db = require('./config/keys').mongoURI;
 
@@ -13,12 +15,15 @@ mongoose.connect(db,{ useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-
 //EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs')
 
-app.listen(PORT, console.log(`Server started on PORT ${PORT}`))
+//Bodyparser --->> now part of express -- middleware for the form/// where before you would write bodyparser.urlencoded
+app.use(express.urlencoded({ extended:false})) // i dont' know why extended is false // BUT this way you can get data from the form, through req.body
+
+
+//routes
 
 app.use('/', require('./routes/index'));
 
