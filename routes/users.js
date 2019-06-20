@@ -1,5 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+
+//User model
+const User = require('../models/User')
 
 //LoginPage --> now nested in pathway users/login
 router.get('/login', (req,res) => res.render('Login'))
@@ -33,7 +37,15 @@ router.post('/register', (req,res) => {
       password2
     });
   } else {
-  res.send ('pass');
+    //Validation passed 
+    //mongoose - create model and call methods on that model
+    const newUser = new User({
+      name,
+      email,
+      password
+    })
+    console.log(newUser)
+  res.send ('hello');
 }
   
 });
