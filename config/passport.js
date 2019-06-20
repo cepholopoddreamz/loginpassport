@@ -1,3 +1,5 @@
+//we need to export our strategy
+
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -32,5 +34,15 @@ module.exports = function(passport) {
     })
   );
 
+//straight from documentation on passport
 
-//we need to export our strategy
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+};

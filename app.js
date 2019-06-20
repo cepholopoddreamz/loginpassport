@@ -4,8 +4,12 @@ const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3000;
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
 
 const app = express();
+
+// Passport Config
+require('./config/passport')(passport);
 
 app.listen(PORT, console.log(`Server started on PORT ${PORT}`))
 
@@ -32,6 +36,11 @@ app.use(
     saveUninitialized: true
   })
 );
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //Connect flash
 app.use(flash());
