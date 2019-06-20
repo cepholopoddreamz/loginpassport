@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+//User model
+const User = require('../models/User')
+
 //LoginPage --> now nested in pathway users/login
 router.get('/login', (req,res) => res.render('Login'))
 
@@ -33,7 +36,28 @@ router.post('/register', (req,res) => {
       password2
     });
   } else {
-  res.send ('pass');
+    //Validation passes - we want to use our model /// and you have methods you can call on that model
+  //res.send ('pass');
+  User.findOne({email: email})
+  //returns a promise
+  .then(user =>{
+    if(user){
+      //if user exists re render the register form and send along an error
+      
+      errors.push({msg: 'Email is already registered'})
+      //add new errors
+      res.render('register', {
+        errors, //want to loop through and display these messages
+        name,
+        email,
+        password,
+        password2
+      });
+    }
+    
+
+    
+  })
 }
   
 });
